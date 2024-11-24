@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSA Algorithms - Showcase</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="showcase-container">
+        <a href="landingpage.html" class="home-btn">Home</a>
+        <nav class="sidebar">
+            <ul>
+                <li><a href="#algorithms">Algorithms</a></li>
+                <li><a href="#pseudocode">Pseudocode</a></li>
+                <li><a href="#data-structures">Data Structures</a></li>
+            </ul>
+        </nav>
+
+        <main class="content">
+            <!-- Algorithms Section -->
+            <section id="algorithms">
+                <h2>Algorithm Samples</h2>
+                <div class="algorithm-grid">
+                    <!-- Array Operations -->
+                    <div class="card">
+                        <h3>Array Operations</h3>
+                        <div class="interactive-section">
+                            <div class="controls">
+                                <input type="number" id="array-index" placeholder="Index">
+                                <input type="number" id="array-value" placeholder="Value">
+                                <button onclick="arrayOps.insertAt(document.getElementById('array-index').value, document.getElementById('array-value').value)">Insert</button>
+                                <button onclick="arrayOps.deleteAt(document.getElementById('array-index').value)">Delete</button>
+                                <button onclick="arrayOps.updateAt(document.getElementById('array-index').value, document.getElementById('array-value').value)">Update</button>
+                                <button onclick="arrayOps.linearSearch(document.getElementById('array-value').value)">Search Value</button>
+                                <button onclick="arrayOps.generateRandomArray()">Generate Random Array</button>
+                            </div>
+                            <div class="array-container">
+                                <p>Current Array:</p>
+                                <div id="array-output" class="output"></div>
+                            </div>
+                        </div>
+                        <pre><code class="python">
+def array_operations():
+    # Initialize array
+    arr = []
+    
+    # Insert operations
+    def insert_at(index, value):
+        if 0 <= index <= len(arr):
+            arr.insert(index, value)
+            return True
+        return False
+    
+    # Delete operations
+    def delete_at(index):
+        if 0 <= index < len(arr):
+            return arr.pop(index)
+        return None
+    
+    # Search operation
+    def linear_search(value):
+        for i in range(len(arr)):
+            if arr[i] == value:
+                return i
+        return -1
+    
+    # Update operation
+    def update_at(index, value):
+        if 0 <= index < len(arr):
+            arr[index] = value
+            return True
+        return False
+                        </code></pre>
+                    </div>
+
+                    <!-- Sorting Algorithms -->
+                    <div class="card">
+                        <h3>Sorting Algorithms</h3>
+                        <div class="interactive-section">
+                            <div class="controls">
+                                <input type="text" id="sort-input" placeholder="Enter numbers (comma-separated)">
+                                <button onclick="sortingAlgs.generateRandomArray()">Generate Random Array</button>
+                                <button onclick="sortingAlgs.bubbleSort(document.getElementById('sort-input').value.split(',').map(Number))">Bubble Sort</button>
+                                <button onclick="sortingAlgs.selectionSort(document.getElementById('sort-input').value.split(',').map(Number))">Selection Sort</button>
+                                <button onclick="sortingAlgs.insertionSort(document.getElementById('sort-input').value.split(',').map(Number))">Insertion Sort</button>
+                                <button onclick="sortingAlgs.quickSort(document.getElementById('sort-input').value.split(',').map(Number))">Quick Sort</button>
+                                <button onclick="sortingAlgs.mergeSort(document.getElementById('sort-input').value.split(',').map(Number))">Merge Sort</button>
+                            </div>
+                            <div id="sorting-output" class="output"></div>
+                        </div>
+                        <pre><code class="python">
+# 1. Bubble Sort
+def bubble_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        for j in range(0, n-i-1):
+            if arr[j] > arr[j+1]:
+                arr[j], arr[j+1] = arr[j+1], arr[j]
+    return arr
+
+# 2. Selection Sort
+def selection_sort(arr):
+    for i in range(len(arr)):
+        min_idx = i
+        for j in range(i+1, len(arr)):
+            if arr[j] < arr[min_idx]:
+                min_idx = j
+        arr[i], arr[min_idx] = arr[min_idx], arr[i]
+    return arr
+
+# 3. Insertion Sort
+def insertion_sort(arr):
+    for i in range(1, len(arr)):
+        key = arr[i]
+        j = i-1
+        while j >= 0 and arr[j] > key:
+            arr[j+1] = arr[j]
+            j -= 1
+        arr[j+1] = key
+    return arr
+
+# 4. Quick Sort
+def quick_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    pivot = arr[len(arr) // 2]
+    left = [x for x in arr if x < pivot]
+    middle = [x for x in arr if x == pivot]
+    right = [x for x in arr if x > pivot]
+    return quick_sort(left) + middle + quick_sort(right)
+
+# 5. Merge Sort
+def merge_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    
+    mid = len(arr) // 2
+    left = merge_sort(arr[:mid])
+    right = merge_sort(arr[mid:])
+    
+    return merge(left, right)
+
+def merge(left, right):
+    result = []
+    i = j = 0
+    while i < len(left) and j < len(right):
+        if left[i] <= right[j]:
+            result.append(left[i])
+            i += 1
+        else:
+            result.append(right[j])
+            j += 1
+    result.extend(left[i:])
+    result.extend(right[j:])
+    return result
+                        </code></pre>
+                    </div>
+
+                    <!-- Single Linked List -->
+                    <div class="card">
+                        <h3>Single Linked List</h3>
+                        <div class="interactive-section">
+                            <div class="controls">
+                                <input type="number" id="sll-value" placeholder="Value">
+                                <button onclick="singleLinkedList.generateRandomList()">Generate Random List</button>
+                                <button onclick="singleLinkedList.insertFront(document.getElementById('sll-value').value)">Insert Front</button>
+                                <button onclick="singleLinkedList.deleteFront()">Delete Front</button>
+                            </div>
+                            <div id="sll-output" class="output"></div>
+                        </div>
+                        <pre><code class="python">
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+class SingleLinkedList:
+    def __init__(self):
+        self.head = None
+    
+    def insert_front(self, data):
+        new_node = Node(data)
+        new_node.next = self.head
+        self.head = new_node
+    
+    def delete_front(self):
+        if self.head:
+            self.head = self.head.next
+    
+    def display(self):
+        current = self.head
+        while current:
+            print(current.data, end=" -> ")
+            current = current.next
+        print("None")
+                        </code></pre>
+                    </div>
+
+                    <!-- Double Linked List -->
+                    <div class="card">
+                        <h3>Double Linked List</h3>
+                        <pre><code class="python">
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.prev = None
+        self.next = None
+
+class DoubleLinkedList:
+    def __init__(self):
+        self.head = None
+    
+    def insert_front(self, data):
+        new_node = Node(data)
+        if self.head:
+            new_node.next = self.head
+            self.head.prev = new_node
+        self.head = new_node
+    
+    def delete_front(self):
+        if self.head:
+            self.head = self.head.next
+            if self.head:
+                self.head.prev = None
+                        </code></pre>
+                    </div>
+
+                    <!-- Circular Linked List -->
+                    <div class="card">
+                        <h3>Circular Linked List</h3>
+                        <pre><code class="python">
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+class CircularLinkedList:
+    def __init__(self):
+        self.head = None
+    
+    def insert_end(self, data):
+        new_node = Node(data)
+        if not self.head:
+            self.head = new_node
+            new_node.next = self.head
+        else:
+            current = self.head
+            while current.next != self.head:
+                current = current.next
+            current.next = new_node
+            new_node.next = self.head
+                        </code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Pseudocode Section -->
+            <section id="pseudocode">
+                <h2>Pseudocode Samples</h2>
+                <div class="pseudocode-grid">
+                    <!-- Array Operations Pseudocode -->
+                    <div class="card">
+                        <h3>Array Operations Pseudocode</h3>
+                        <pre><code>
+PROCEDURE insert_at(array, index, value)
+    IF index >= 0 AND index <= length(array) THEN
+        SHIFT elements from index to right
+        SET array[index] = value
+        RETURN true
+    RETURN false
+
+PROCEDURE delete_at(array, index)
+    IF index >= 0 AND index < length(array) THEN
+        value = array[index]
+        SHIFT elements from index+1 to left
+        RETURN value
+    RETURN null
+                        </code></pre>
+                    </div>
+
+                    <!-- Sorting Algorithms Pseudocode -->
+                    <div class="card">
+                        <h3>Sorting Algorithms Pseudocode</h3>
+                        <pre><code>
+PROCEDURE bubble_sort(array)
+    FOR i = 0 TO length(array)-1
+        FOR j = 0 TO length(array)-i-2
+            IF array[j] > array[j+1] THEN
+                SWAP array[j] WITH array[j+1]
+    RETURN array
+
+PROCEDURE quick_sort(array)
+    IF length(array) <= 1 THEN
+        RETURN array
+    pivot = array[length(array)/2]
+    left = [elements < pivot]
+    middle = [elements == pivot]
+    right = [elements > pivot]
+    RETURN quick_sort(left) + middle + quick_sort(right)
+                        </code></pre>
+                    </div>
+
+                    <!-- Linked List Pseudocode -->
+                    <div class="card">
+                        <h3>Linked List Pseudocode</h3>
+                        <pre><code>
+PROCEDURE insert_front(list, value)
+    new_node = CREATE_NODE(value)
+    new_node.next = list.head
+    list.head = new_node
+
+PROCEDURE delete_front(list)
+    IF list.head NOT NULL THEN
+        list.head = list.head.next
+                        </code></pre>
+                    </div>
+
+                    <!-- Stack Operations Pseudocode -->
+                    <div class="card">
+                        <h3>Stack Operations Pseudocode</h3>
+                        <pre><code>
+PROCEDURE push(stack, value)
+    IF is_full(stack) THEN
+        RETURN error
+    stack[++top] = value
+
+PROCEDURE pop(stack)
+    IF is_empty(stack) THEN
+        RETURN error
+    RETURN stack[top--]
+                        </code></pre>
+                    </div>
+
+                    <!-- Tree Traversal Pseudocode -->
+                    <div class="card">
+                        <h3>Tree Traversal Pseudocode</h3>
+                        <pre><code>
+PROCEDURE inorder(node)
+    IF node NOT NULL THEN
+        inorder(node.left)
+        PRINT node.value
+        inorder(node.right)
+
+PROCEDURE preorder(node)
+    IF node NOT NULL THEN
+        PRINT node.value
+        preorder(node.left)
+        preorder(node.right)
+                        </code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Data Structures Section -->
+            <section id="data-structures">
+                <h2>Data Structures Implementation</h2>
+                
+                <!-- Arrays -->
+                <div class="ds-section">
+                    <h3>Arrays</h3>
+                    <pre><code class="python">
+# Array operations
+numbers = []
+numbers.append(1)  # Add element
+numbers.pop()      # Remove last element
+numbers.insert(0, 5)  # Insert at index
+                    </code></pre>
+                </div>
+
+                <!-- Add more data structure implementations -->
+            </section>
+        </main>
+    </div>
+    <footer class="footer">
+        <p>&copy; xryb</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
